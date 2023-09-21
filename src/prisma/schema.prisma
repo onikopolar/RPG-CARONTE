@@ -1,6 +1,6 @@
 datasource db {
   provider = "mysql"
-  url      = env("DB_PROVIDER_URL")
+  url      = mysql -hcontainers-us-west-46.railway.app -uroot -pptrhSVnpHKV9TLvp8BlT --port 6748 --protocol=TCP railway
 }
 
 generator client {
