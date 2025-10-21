@@ -12,8 +12,8 @@
   "prisma": {
     "schema": "src/prisma/schema.prisma"
   },
-  "engines":{
-    "node":"^16.17.0"
+  "engines": {
+    "node": "^16.17.0"
   },
   "dependencies": {
     "@emotion/react": "^11.4.1",
@@ -23,7 +23,7 @@
     "@mui/icons-material": "^5.0.3",
     "@mui/material": "^5.0.3",
     "@mui/styles": "^5.0.1",
-    "@prisma/client": "^3.2.0",
+    "@prisma/client": "^6.17.1",
     "axios": "^0.22.0",
     "copy-to-clipboard": "^3.3.1",
     "dotenv": "^10.0.0",
@@ -41,6 +41,6 @@
   "devDependencies": {
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
-    "prisma": "^3.3.0"
+    "prisma": "^6.17.1"
   }
 }
