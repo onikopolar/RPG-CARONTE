@@ -1,44 +1,47 @@
-import { prisma } from '../../../database';
+import { PrismaClient } from '@prisma/client';
 
 export default async function handler(req, res) {
-    if(req.method === 'DELETE') {
-        const id = Number(req.query.id);
+  const prisma = new PrismaClient();
+  const { id } = req.query;
 
-        const deleteFromCharacterSkills = prisma.characterSkills.deleteMany({
-            where: {
-                skill_id: id
-            }
-        });
-
-        const deleteSkill = prisma.skill.delete({
-            where: {
-                id
-            }
-        });
-
-        await prisma.$transaction([deleteFromCharacterSkills, deleteSkill]);
-
-        return res.status(200).json({ success: true });
-    }
-    else if(req.method === 'PUT') {
-        const { body } = req;
-
-        if(!body.name) {
-            return res.status(400).json({ error: 'Name not set' });
+  try {
+    if (req.method === 'GET') {
+      const skill = await prisma.skill.findUnique({
+        where: { id: parseInt(id) }
+      });
+      
+      if (!skill) {
+        return res.status(404).json({ error: 'Perícia não encontrada' });
+      }
+      
+      res.status(200).json(skill);
+    } else if (req.method === 'PUT') {
+      const { name, value, attribute } = req.body;
+      
+      const skill = await prisma.skill.update({
+        where: { id: parseInt(id) },
+        data: {
+          name,
+          value: parseInt(value),
+          attribute
         }
-        
-        const id = Number(req.query.id);
-    
-        const skill = await prisma.skill.update({
-            where: {
-                id
-            },
-            data: body
-        });
-
-        return res.status(200).json(skill);
+      });
+      
+      res.status(200).json(skill);
+    } else if (req.method === 'DELETE') {
+      await prisma.skill.delete({
+        where: { id: parseInt(id) }
+      });
+      
+      res.status(204).end();
+    } else {
+      res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
+      res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-    else {
-        return res.status(404);
-    }
+  } catch (error) {
+    console.error('Erro na API skill [id]:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  } finally {
+    await prisma.$disconnect();
+  }
 }

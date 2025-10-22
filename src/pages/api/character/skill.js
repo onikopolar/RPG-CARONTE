@@ -1,28 +1,23 @@
-import { prisma } from '../../../database';
+import { PrismaClient } from '@prisma/client';
 
 export default async function handler(req, res) {
-    if(req.method === 'PUT') {
-        const { character_id, skill_id, value } = req.body;
+  const prisma = new PrismaClient();
+  const { characterId } = req.query;
 
-        if(!character_id || !skill_id || (value === undefined || value === null )) {
-            return res.status(400).json({ error: 'Missing Required Data' });
-        }
-
-        const result = await prisma.characterSkills.update({
-            data: {
-                value: value.toString()
-            },
-            where: {
-                character_id_skill_id: {
-                    skill_id,
-                    character_id
-                }
-            }
-        });
-
-        return res.json(result);
+  try {
+    if (req.method === 'GET') {
+      const skills = await prisma.skill.findMany({
+        where: { characterId: parseInt(characterId) }
+      });
+      res.status(200).json(skills);
+    } else {
+      res.setHeader('Allow', ['GET']);
+      res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-    else {
-        return res.status(404);
-    }
+  } catch (error) {
+    console.error('Erro na API character skill:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  } finally {
+    await prisma.$disconnect();
+  }
 }

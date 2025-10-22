@@ -1,44 +1,46 @@
-import { prisma } from '../../../database';
+import { PrismaClient } from '@prisma/client';
 
 export default async function handler(req, res) {
-    if(req.method === 'DELETE') {
-        const id = Number(req.query.id);
+  const prisma = new PrismaClient();
+  const { id } = req.query;
 
-        const deleteFromCharacterAttributes = prisma.characterAttributes.deleteMany({
-            where: {
-                attribute_id: id
-            }
-        });
-
-        const deleteAttribute = prisma.attribute.delete({
-            where: {
-                id
-            }
-        });
-
-        await prisma.$transaction([deleteFromCharacterAttributes, deleteAttribute]);
-
-        return res.status(200).json({ success: true });
-    }
-    else if(req.method === 'PUT') {
-        const { body } = req;
-
-        if(!body.name) {
-            return res.status(400).json({ error: 'Name not set' });
+  try {
+    if (req.method === 'GET') {
+      const attribute = await prisma.attribute.findUnique({
+        where: { id: parseInt(id) }
+      });
+      
+      if (!attribute) {
+        return res.status(404).json({ error: 'Atributo não encontrado' });
+      }
+      
+      res.status(200).json(attribute);
+    } else if (req.method === 'PUT') {
+      const { name, value } = req.body;
+      
+      const attribute = await prisma.attribute.update({
+        where: { id: parseInt(id) },
+        data: {
+          name,
+          value: parseInt(value)
         }
-        
-        const id = Number(req.query.id);
-    
-        const attribute = await prisma.attribute.update({
-            where: {
-                id
-            },
-            data: body
-        });
-
-        return res.status(200).json(attribute);
+      });
+      
+      res.status(200).json(attribute);
+    } else if (req.method === 'DELETE') {
+      await prisma.attribute.delete({
+        where: { id: parseInt(id) }
+      });
+      
+      res.status(204).end();
+    } else {
+      res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
+      res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-    else {
-        return res.status(404);
-    }
+  } catch (error) {
+    console.error('Erro na API attribute [id]:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  } finally {
+    await prisma.$disconnect();
+  }
 }

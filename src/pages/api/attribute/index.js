@@ -1,43 +1,32 @@
-import { prisma } from '../../../database';
+import { PrismaClient } from '@prisma/client';
 
 export default async function handler(req, res) {
-    if(req.method === 'POST') {
-        const { body } = req;
-
-        if(!body.name) {
-            return res.status(400).json({ error: 'Name not set' });
+  const prisma = new PrismaClient();
+  
+  try {
+    if (req.method === 'GET') {
+      const attributes = await prisma.attribute.findMany();
+      res.status(200).json(attributes);
+    } else if (req.method === 'POST') {
+      const { name, value, characterId } = req.body;
+      
+      const attribute = await prisma.attribute.create({
+        data: {
+          name,
+          value: parseInt(value),
+          characterId
         }
-
-        const attribute = await prisma.attribute.create({
-            data: body
-        });
-
-        // Assign Created Attribute to All Characters
-        const characters = await prisma.character.findMany();
-
-        characters.forEach(async character => {
-            await prisma.characterAttributes.create({
-                data: {
-                    character_id: character.id,
-                    attribute_id: attribute.id
-                }
-            });
-        });
-
-        return res.status(200).json(attribute);
+      });
+      
+      res.status(201).json(attribute);
+    } else {
+      res.setHeader('Allow', ['GET', 'POST']);
+      res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-    else if(req.method === 'GET') {
-        const attributes = await prisma.attribute.findMany({
-            orderBy: [
-                {
-                    name: 'asc',
-                }
-            ]
-        });
-
-        return res.status(200).json(attributes);
-    }
-    else {
-        return res.status(404);
-    }
+  } catch (error) {
+    console.error('Erro na API attribute:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  } finally {
+    await prisma.$disconnect();
+  }
 }
