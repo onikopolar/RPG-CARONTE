@@ -5,8 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "node src/server.js",
-    "heroku-postbuild": "npx prisma generate",
-    "release": "npx prisma db push --accept-data-loss --force-reset"
+    "heroku-postbuild": "npx prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^3.15.2",
