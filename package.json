@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "node src/server.js",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "start": "node src/server.js",
     "lint": "next lint",
-    "heroku-postbuild": "npx prisma migrate deploy && next build"
+    "heroku-postbuild": "npx prisma generate && migrate deploy"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"
