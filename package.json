@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "node src/server.js",
     "lint": "next lint",
-    "heroku-postbuild": "npx prisma generate && migrate deploy"
+    "heroku-postbuild": "npx prisma generate && npx prisma migrate deploy"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"
