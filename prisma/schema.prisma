@@ -39,3 +39,4 @@ model GameSession {
 
   characters Character[]
 }
+// Schema for RPG Ficha Diabolica - Clean version
