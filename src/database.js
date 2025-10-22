@@ -7,3 +7,4 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = { prisma };
+// Database configuration for RPG CARONTE
