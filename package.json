@@ -1,19 +1,19 @@
 {
   "name": "open-source-rpg-app",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "node src/server.js",
-    "build": "NODE_OPTIONS='--openssl-legacy-provider' prisma generate && NODE_OPTIONS='--openssl-legacy-provider' next build",
+    "build": "next build",
     "start": "node src/server.js",
     "lint": "next lint",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npx prisma migrate deploy && next build"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"
   },
-  "engines": {
-    "node": "18.x"
+  "engines":{
+    "node":"^16.17.0"
   },
   "dependencies": {
     "@emotion/react": "^11.4.1",
@@ -23,7 +23,7 @@
     "@mui/icons-material": "^5.0.3",
     "@mui/material": "^5.0.3",
     "@mui/styles": "^5.0.1",
-    "@prisma/client": "^6.17.1",
+    "@prisma/client": "^3.2.0",
     "axios": "^0.22.0",
     "copy-to-clipboard": "^3.3.1",
     "dotenv": "^10.0.0",
@@ -41,6 +41,6 @@
   "devDependencies": {
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
-    "prisma": "^6.17.1"
+    "prisma": "^3.3.0"
   }
 }

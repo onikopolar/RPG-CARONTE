@@ -15,7 +15,7 @@ import { Header, Section, CharacterBox, AddBox,
 import { api } from '../../utils';
 import useModal from '../../hooks/useModal';
 
-const { prisma } = require("../../database.js");
+import { prisma } from '../../database';
 
 export const getServerSideProps = async () => {
   function parseConfigs(array) {

@@ -1,30 +1,3 @@
-# 🎲 RPG CARONTE v0.2.0
-
-> **LANÇAMENTO ESTÁVEL** | Sistema completo de RPG para web com integração OBS
-
-[![Version](https://img.shields.io/badge/version-0.2.0-brightgreen)](https://github.com/onikopolar/RPG-CARONTE/releases/tag/v0.2.0)
-[![Linux](https://img.shields.io/badge/Linux-Compatible-success)](https://github.com/onikopolar/RPG-CARONTE)
-
-**Download**: [Release v0.2.0](https://github.com/onikopolar/RPG-CARONTE/releases/tag/v0.2.0)
-
----
-
-### Setup Rápido
-```bash
-git clone https://github.com/onikopolar/RPG-CARONTE.git
-cd RPG-CARONTE
-npm install
-npx prisma db push
-node src/prisma/seed.js
-npm run dev
-
-
-### **3. Commitar a documentação**
-```bash
-git add CHANGELOG.md README.md
-git commit -m "docs: add v0.2.0 documentation and changelog"
-git push meufork main
-
 # Open Source RPG
 
 Tutorial: https://www.twitch.tv/videos/1215083891
