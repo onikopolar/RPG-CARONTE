@@ -1,1 +1,2 @@
-web: next start -p $PORT
+# Configuração para plataformas que suportam Procfile
+web: npm start

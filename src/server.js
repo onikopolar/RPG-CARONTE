@@ -18,11 +18,8 @@ app.prepare().then(() => {
       res.statusCode = 500
       res.end('internal server error')
     }
-  }).listen(port, '0.0.0.0', (err) => {
+  }).listen(port, (err) => {
     if (err) throw err
-    console.log(`> Server ready on port ${port}`)
+    console.log(`> Ready on http://localhost:${port}`)
   })
-}).catch(err => {
-  console.error('Error starting server:', err)
-  process.exit(1)
 })
