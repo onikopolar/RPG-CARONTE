@@ -1,2 +1,1 @@
-release: npx prisma db push --skip-generate
-web: npm start
+web: node src/server.js
