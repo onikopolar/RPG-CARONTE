@@ -22,7 +22,7 @@ import {
 
 import useModal from '../../hooks/useModal';
 
-import { prisma } from '../../database';
+const { prisma } = require("../../database");
 
 export const getServerSideProps = async ({ params }) => {
   const characterId = isNaN(params.id) ? null : Number(params.id);

@@ -1,4 +1,4 @@
-import { prisma } from '../../../database';
+const { prisma } = require("../../database");
 
 function parseRelationArray(array, entityName) {
     return array.map(item => ({

@@ -1,4 +1,4 @@
-import { prisma } from '../../../database';
+const { prisma } = require("../../database");
 
 export default async function handler(req, res) {
     if(req.method === 'DELETE') {

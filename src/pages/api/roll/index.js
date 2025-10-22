@@ -1,4 +1,4 @@
-import { prisma } from '../../../database';
+const { prisma } = require("../../database");
 
 import { generateRandomNumber } from '../../../utils';
 
