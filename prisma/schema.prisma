@@ -7,36 +7,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  characters Character[]
-}
-
 model Character {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   name        String
-  level       Int      @default(1)
-  class       String
-  userId      Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  gameSessions GameSession[]
-}
-
-model GameSession {
-  id          Int      @id @default(autoincrement())
-  title       String
+  player      String
   description String?
-  sessionDate DateTime
-  createdAt   DateTime @default(now())
-
-  characters Character[]
+  attributes  Attribute[]
+  skills      Skill[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
-// Schema for RPG Ficha Diabolica - Clean version
+
+model Attribute {
+  id          Int    @id @default(autoincrement())
+  name        String
+  value       Int
+  characterId Int
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+}
+
+model Skill {
+  id          Int    @id @default(autoincrement())
+  name        String
+  value       Int
+  attribute   String
+  characterId Int
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+}
+
+model Config {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  value String
+}
