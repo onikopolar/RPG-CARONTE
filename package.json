@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node src/server.js",
-    "build": "NODE_OPTIONS='--openssl-legacy-provider' prisma generate && next build",
+    "build": "NODE_OPTIONS='--openssl-legacy-provider' prisma generate && NODE_OPTIONS='--openssl-legacy-provider' next build",
     "start": "node src/server.js",
     "lint": "next lint",
     "heroku-postbuild": "npm run build"
