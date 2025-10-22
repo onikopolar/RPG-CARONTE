@@ -12,16 +12,14 @@ export default async function handler(req, res) {
     } else if (req.method === 'POST') {
       const { name, player, description, attributes, skills } = req.body;
       
-      console.log('📥 Dados recebidos:', { name, player, description });
+      console.log('Dados recebidos:', { name, player, description });
       
-      // Validação com valores padrão
       if (!name) {
         return res.status(400).json({ 
-          error: 'Campo obrigatório faltando: name é necessário' 
+          error: 'Campo obrigatorio faltando: name e necessario' 
         });
       }
 
-      // Usar valor padrão se player não for enviado
       const playerName = player || 'Jogador';
       const characterDescription = description || '';
 
@@ -40,7 +38,7 @@ export default async function handler(req, res) {
         include: { attributes: true, skills: true }
       });
       
-      console.log('✅ Personagem criado:', character.name);
+      console.log('Personagem criado:', character.name);
       res.status(201).json(character);
     } else {
       res.setHeader('Allow', ['GET', 'POST']);
@@ -51,11 +49,11 @@ export default async function handler(req, res) {
     console.error('Dados recebidos:', req.body);
     
     if (error.code === 'P2002') {
-      res.status(400).json({ error: 'Personagem com este nome já existe' });
+      res.status(400).json({ error: 'Personagem com este nome ja existe' });
     } else if (error.name === 'PrismaClientValidationError') {
       res.status(400).json({ 
-        error: 'Dados inválidos fornecidos',
-        details: 'Certifique-se de que todos os campos obrigatórios estão preenchidos' 
+        error: 'Dados invalidos fornecidos',
+        details: 'Certifique-se de que todos os campos obrigatorios estao preenchidos' 
       });
     } else {
       res.status(500).json({ error: 'Erro interno do servidor' });
