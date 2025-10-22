@@ -10,7 +10,7 @@
     "heroku-postbuild": "npx prisma migrate deploy && next build"
   },
   "prisma": {
-    "schema": "src/prisma/schema.prisma"
+    "schema": "prisma/schema.prisma"
   },
   "engines":{
     "node": "18.x"

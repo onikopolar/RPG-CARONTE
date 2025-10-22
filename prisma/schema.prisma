@@ -1,7 +1,5 @@
-// schema.prisma
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "linux-musl"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -9,14 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Modelos básicos para um sistema RPG - adapte conforme necessário
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
   characters Character[]
 }
 
@@ -28,8 +25,9 @@ model Character {
   userId      Int
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gameSessions GameSession[]
 }
 
 model GameSession {
@@ -38,6 +36,6 @@ model GameSession {
   description String?
   sessionDate DateTime
   createdAt   DateTime @default(now())
-  
+
   characters Character[]
 }
