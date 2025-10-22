@@ -1,38 +1,32 @@
 {
-  "name": "open-source-rpg-app",
-  "version": "0.1.0",
-  "private": true,
+  "name": "rpg-caronte-oniko",
+  "version": "1.0.0",
   "scripts": {
-    "dev": "node src/server.js",
+    "dev": "next dev",
     "build": "next build",
     "start": "node src/server.js",
-    "lint": "next lint",
-    "heroku-postbuild": "next build"
+    "heroku-postbuild": "npx prisma generate",
+    "release": "npx prisma db push --accept-data-loss --force-reset"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@mui/icons-material": "^5.14.0",
-    "@mui/material": "^5.14.0",
-    "@mui/styles": "^5.14.0",
     "@prisma/client": "^3.15.2",
-    "axios": "^1.5.0",
-    "copy-to-clipboard": "^3.3.0",
-    "express": "^4.18.1",
-    "formik": "^2.4.0",
-    "js-queue": "^2.0.0",
     "next": "12.3.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "socket.io-client": "^4.7.0",
-    "yup": "^1.3.0"
+    "express": "^4.18.1",
+    "@mui/material": "^5.14.0",
+    "@mui/icons-material": "^5.14.0",
+    "@mui/styles": "^5.14.0",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "formik": "^2.4.0",
+    "yup": "^1.3.0",
+    "copy-to-clipboard": "^3.3.0",
+    "js-queue": "^2.0.0",
+    "axios": "^1.5.0",
+    "socket.io-client": "^4.7.0"
   },
-  "devDependencies": {
-    "eslint": "8.23.1",
-    "eslint-config-next": "12.3.1",
-    "prisma": "^3.15.2"
-  },
-  "engines": {
-    "node": "18.x"
+  "prisma": {
+    "schema": "prisma/schema.prisma"
   }
 }
