@@ -9,7 +9,7 @@ datasource db {
 
 model Character {
   id          Int         @id @default(autoincrement())
-  name        String
+  name        String      @unique
   player      String
   description String?
   attributes  Attribute[]
@@ -22,17 +22,16 @@ model Attribute {
   id          Int    @id @default(autoincrement())
   name        String
   value       Int
-  characterId Int
   character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId Int
 }
 
 model Skill {
   id          Int    @id @default(autoincrement())
   name        String
   value       Int
-  attribute   String
-  characterId Int
   character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId Int
 }
 
 model Config {
