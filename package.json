@@ -7,33 +7,29 @@
     "build": "next build",
     "start": "node src/server.js",
     "lint": "next lint",
-    "heroku-postbuild": "next build",
-    "heroku-release": "npx prisma migrate deploy"
+    "heroku-postbuild": "next build"
   },
   "dependencies": {
-    "@mui/icons-material": "^7.3.4",
-    "@mui/material": "^7.3.4",
-    "@mui/styles": "^6.5.0",
-    "@prisma/client": "^4.0.0",
-    "axios": "^1.12.2",
-    "copy-to-clipboard": "^3.3.3",
-    "express": "^4.18.1",
-    "formik": "^2.4.6",
-    "js-queue": "^2.0.2",
-    "next": "12.3.1",
+    "@prisma/client": "^3.15.2",
+    "next": "12.3.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "socket.io-client": "^4.8.1"
+    "express": "^4.18.1",
+    "@mui/material": "^5.14.0",
+    "@mui/icons-material": "^5.14.0",
+    "@mui/styles": "^5.14.0",
+    "formik": "^2.4.0",
+    "copy-to-clipboard": "^3.3.0",
+    "js-queue": "^2.0.0",
+    "axios": "^1.5.0",
+    "socket.io-client": "^4.7.0"
   },
   "devDependencies": {
+    "prisma": "^3.15.2",
     "eslint": "8.23.1",
-    "eslint-config-next": "12.3.1",
-    "prisma": "^4.0.0"
+    "eslint-config-next": "12.3.1"
   },
   "engines": {
     "node": "18.x"
-  },
-  "prisma": {
-    "migrate": "prisma migrate deploy"
   }
 }
