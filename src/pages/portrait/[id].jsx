@@ -7,7 +7,7 @@ import { withStyles } from '@mui/styles';
 
 import socket from '../../utils/socket';
 
-const { prisma } = require("../../database");
+const { prisma } = require("../../database.js");
 
 export const getServerSideProps = async ({ params }) => {
   const characterId = isNaN(params.id) ? null : Number(params.id);

@@ -1,4 +1,4 @@
-const { prisma } = require("../../database");
+const { prisma } = require("../../../database.js");
 
 function parseRelationArray(array, entityName) {
     return array.map(item => ({

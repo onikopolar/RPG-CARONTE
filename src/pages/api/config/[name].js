@@ -1,4 +1,4 @@
-const { prisma } = require("../../database");
+const { prisma } = require("../../../database.js");
 
 export default async function handler(req, res) {
     if(req.method === 'PUT') {
