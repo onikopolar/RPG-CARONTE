@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "node src/server.js",
     "lint": "next lint",
-    "heroku-postbuild":  "echo 'Prisma will run manually'"
+    "heroku-postbuild":  "echo ´Build complete'"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"

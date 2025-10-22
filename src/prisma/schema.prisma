@@ -5,14 +5,62 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://temp:temp@temp.com/temp"
+  url      = env("DATABASE_URL")
 }
 
-// Seus models aqui (copie do backup)
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   name      String?
   createdAt DateTime @default(now())
-  // ... continue com seus outros models
+  characters Character[]
+}
+
+model Character {
+  id        Int      @id @default(autoincrement())
+  name      String
+  class     String?
+  level     Int      @default(1)
+  createdAt DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  attributes CharacterAttribute[]
+}
+
+model GameSession {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+}
+
+model Attribute {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  characters  CharacterAttribute[]
+}
+
+model CharacterAttribute {
+  id          Int       @id @default(autoincrement())
+  value       Int       @default(0)
+  characterId Int
+  attributeId Int
+  character Character @relation(fields: [characterId], references: [id])
+  attribute Attribute @relation(fields: [attributeId], references: [id])
+  @@unique([characterId, attributeId])
+}
+
+model Skill {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+}
+
+model Config {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  value String
 }
